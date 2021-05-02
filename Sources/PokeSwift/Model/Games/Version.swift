@@ -9,13 +9,13 @@ import Foundation
 
 public class Version: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this resource in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// The version group this version belongs to.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 extension Version: Requestable {

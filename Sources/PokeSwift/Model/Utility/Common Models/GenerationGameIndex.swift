@@ -9,7 +9,7 @@ import Foundation
 
 public class GenerationGameIndex: BaseResourceProtocol {
 	/// The internal id of an API resource within game data.
-	public let gameIndex: Int
+	public let gameIndex: Int?
 	/// The generation relevent to this game index.
-	public let generation: NamedAPIResource<Generation>
+	public let generation: NamedAPIResource<Generation>?
 }

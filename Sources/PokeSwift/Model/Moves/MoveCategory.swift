@@ -9,13 +9,13 @@ import Foundation
 
 public class MoveCategory: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of moves that fall into this category.
-	public let moves: [NamedAPIResource<Move>]
+	public let moves: [NamedAPIResource<Move>]?
 	/// The description of this resource listed in different languages.
-	public let descriptions: [Description]
+	public let descriptions: [Description]?
 }
 
 extension MoveCategory: Requestable {

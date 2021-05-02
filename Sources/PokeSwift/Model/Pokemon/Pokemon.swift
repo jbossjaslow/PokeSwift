@@ -9,78 +9,78 @@ import Foundation
 
 public class Pokemon: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The base experience gained for defeating this Pokémon.
-	public let baseExperience: Int
+	public let baseExperience: Int?
 	/// The height of this Pokémon in decimetres.
-	public let height: Int
+	public let height: Int?
 	/// Set for exactly one Pokémon used as the default for each species.
-	public let isDefault: Bool
+	public let isDefault: Bool?
 	/// Order for sorting. Almost national order, except families are grouped together.
-	public let order: Int
+	public let order: Int?
 	/// The weight of this Pokémon in hectograms.
-	public let weight: Int
+	public let weight: Int?
 	/// A list of abilities this Pokémon could potentially have.
-	public let abilities: [PokemonAbility]
+	public let abilities: [PokemonAbility]?
 	/// A list of forms this Pokémon can take on.
-	public let forms: [NamedAPIResource<PokemonForm>]
+	public let forms: [NamedAPIResource<PokemonForm>]?
 	/// A list of game indices relevent to Pokémon item by generation.
-	public let gameIndices: [VersionGameIndex]
+	public let gameIndices: [VersionGameIndex]?
 	/// A list of items this Pokémon may be holding when encountered.
-	public let heldItems: [PokemonHeldItem]
+	public let heldItems: [PokemonHeldItem]?
 	/// A link to a list of location areas, as well as encounter details pertaining to specific versions.
-	public let locationAreaEncounters: String
+	public let locationAreaEncounters: String?
 	/// A list of moves along with learn methods and level details pertaining to specific version groups.
-	public let moves: [PokemonMove]
+	public let moves: [PokemonMove]?
 	/// A set of sprites used to depict this Pokémon in the game. A visual representation of the various sprites can be found at https://github.com/PokeAPI/sprites#sprites
-	public let sprites: PokemonSprites
+	public let sprites: PokemonSprites?
 	/// The species this Pokémon belongs to.
-	public let species: NamedAPIResource<PokemonSpecies>
+	public let species: NamedAPIResource<PokemonSpecies>?
 	/// A list of base stat values for this Pokémon.
-	public let stats: [PokemonStat]
+	public let stats: [PokemonStat]?
 	/// A list of details showing types this Pokémon has.
-	public let types: [PokemonType]
+	public let types: [PokemonType]?
 }
 
 public class PokemonAbility: BaseResourceProtocol {
 	/// Whether or not this is a hidden ability.
-	public let isHidden: Bool
+	public let isHidden: Bool?
 	/// The slot this ability occupies in this Pokémon species.
-	public let slot: Int
+	public let slot: Int?
 	/// The ability the Pokémon may have.
-	public let ability: NamedAPIResource<Ability>
+	public let ability: NamedAPIResource<Ability>?
 }
 
 public class PokemonHeldItem: BaseResourceProtocol {
 	/// The item the referenced Pokémon holds.
-	public let item: NamedAPIResource<Item>
+	public let item: NamedAPIResource<Item>?
 	/// The details of the different versions in which the item is held.
-	public let versionDetails: [PokemonHeldItemVersion]
+	public let versionDetails: [PokemonHeldItemVersion]?
 }
 
 public class PokemonHeldItemVersion: BaseResourceProtocol {
 	/// The verison in which the item is held.
-	public let version: NamedAPIResource<Version>
+	public let version: NamedAPIResource<Version>?
 	/// How often the item is held.
-	public let rarity: Int
+	public let rarity: Int?
 }
 
 public class PokemonMove: BaseResourceProtocol {
 	/// The move the Pokemon can learn.
-	public let move: NamedAPIResource<Move>
+	public let move: NamedAPIResource<Move>?
 	/// The details of the version in which the Pokemon can learn the move.
-	public let versionGroupDetails: [PokemonMoveVersion]
+	public let versionGroupDetails: [PokemonMoveVersion]?
 }
 
 public class PokemonMoveVersion: BaseResourceProtocol {
 	/// The method by which the move is learned.
-	public let moveLearnMethod: NamedAPIResource<MoveLearnMethod>
+	public let moveLearnMethod: NamedAPIResource<MoveLearnMethod>?
 	/// The version group in which the move is learned.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 	/// The minimum level to learn the move.
-	public let levelLearnedAt: Int
+	public let levelLearnedAt: Int?
 }
 
 public class PokemonSprites: BaseResourceProtocol {
@@ -104,18 +104,18 @@ public class PokemonSprites: BaseResourceProtocol {
 
 public class PokemonStat: BaseResourceProtocol {
 	/// The stat the Pokemon has.
-	public let stat: NamedAPIResource<Stat>
+	public let stat: NamedAPIResource<Stat>?
 	/// The effort points (EVs) the Pokemon has in the stat.
-	public let effort: Int
+	public let effort: Int?
 	/// The base value of the stat.
-	public let baseStat: Int
+	public let baseStat: Int?
 }
 
 public class PokemonType: BaseResourceProtocol {
 	/// The order the Pokemon's types are listed in.
-	public let slot: Int
+	public let slot: Int?
 	/// The type the reference Pokemon has.
-	public let type: NamedAPIResource<Type>
+	public let type: NamedAPIResource<Type>?
 }
 
 extension Pokemon: Requestable {

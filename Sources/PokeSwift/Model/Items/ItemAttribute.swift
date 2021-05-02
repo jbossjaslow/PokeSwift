@@ -9,15 +9,15 @@ import Foundation
 
 public class ItemAttribute: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of items that have this attribute.
-	public let items: [NamedAPIResource<Item>]
+	public let items: [NamedAPIResource<Item>]?
 	/// The name of this item in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// The description of this item attribute listed in different languages.
-	public let descriptions: [Description]
+	public let descriptions: [Description]?
 }
 
 extension ItemAttribute: Requestable {

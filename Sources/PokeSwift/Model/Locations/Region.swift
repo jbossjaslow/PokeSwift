@@ -9,19 +9,19 @@ import Foundation
 
 public class Region: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// A list of locations that can be found in this region.
-	public let locations: [NamedAPIResource<Location>]
+	public let locations: [NamedAPIResource<Location>]?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this item in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// The generation this region was introduced in.
-	public let mainGeneration: NamedAPIResource<Generation>
+	public let mainGeneration: NamedAPIResource<Generation>?
 	/// A list of pokedexes that catalogue Pokemon in this region.
-	public let pokedexes: [NamedAPIResource<Pokedex>]
+	public let pokedexes: [NamedAPIResource<Pokedex>]?
 	/// A list of version groups where this region can be visited.
-	public let versionGroups: [NamedAPIResource<VersionGroup>]
+	public let versionGroups: [NamedAPIResource<VersionGroup>]?
 }
 
 extension Region: Requestable {

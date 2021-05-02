@@ -9,17 +9,17 @@ import Foundation
 
 public class Location: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The region this location can be found in.
-	public let region: NamedAPIResource<Region>
+	public let region: NamedAPIResource<Region>?
 	/// The name of this item in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of game indices relevant to this location by generation.
-	public let gameIndices: [GenerationGameIndex]
+	public let gameIndices: [GenerationGameIndex]?
 	/// Areas that can be found within this location.
-	public let areas: [NamedAPIResource<LocationArea>]
+	public let areas: [NamedAPIResource<LocationArea>]?
 }
 
 extension Location: Requestable {

@@ -9,15 +9,15 @@ import Foundation
 
 public class ContestEffect: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The base number of hearts the user of this move gets.
-	public let appeal: Int
+	public let appeal: Int?
 	/// The base number of hearts the user's opponent loses.
-	public let jam: Int
+	public let jam: Int?
 	/// The result of this contest effect listed in different languages.
-	public let effectEntries: [Effect]
+	public let effectEntries: [Effect]?
 	/// The flavor text of this contest effect listed in different languages.
-	public let flavorTextEntries: [FlavorText]
+	public let flavorTextEntries: [FlavorText]?
 }
 
 extension ContestEffect: Requestable {

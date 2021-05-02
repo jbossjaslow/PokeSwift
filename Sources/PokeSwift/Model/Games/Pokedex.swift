@@ -9,28 +9,28 @@ import Foundation
 
 public class Pokedex: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// Whether or not this Pokedex originated in the main series of the video games.
-	public let isMainSeries: Bool
+	public let isMainSeries: Bool?
 	/// The description of this resource listed in different languages.
-	public let descriptions: [Description]
+	public let descriptions: [Description]?
 	/// The name of this resource in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of Pokemon catalogued in this Pokedex and their indices
-	public let pokemonEntries: [PokemonEntry]
+	public let pokemonEntries: [PokemonEntry]?
 	/// The region this Pokédex catalogues Pokémon for.
-	public let region: NamedAPIResource<Region>
+	public let region: NamedAPIResource<Region>?
 	/// A list of version groups this Pokedex is relevant to.
-	public let versionGroups: [NamedAPIResource<VersionGroup>]
+	public let versionGroups: [NamedAPIResource<VersionGroup>]?
 }
 
 public class PokemonEntry: BaseResourceProtocol {
 	/// The index of this Pokemon species entry within the Pokedex.
-	public let entryNumber: Int
+	public let entryNumber: Int?
 	/// The Pokemon species being encountered.
-	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>
+	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>?
 }
 
 

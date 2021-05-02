@@ -9,9 +9,9 @@ import Foundation
 
 public class VersionEncounterDetail: BaseResourceProtocol {
 	/// The game version this encounter happens in.
-	public let version: NamedAPIResource<Version>
+	public let version: NamedAPIResource<Version>?
 	/// The total percentage of all encounter potential.
-	public let maxChance: Int
+	public let maxChance: Int?
 	/// A list of encounters and their specifics.
-	public let encounterDetails: [Encounter]
+	public let encounterDetails: [Encounter]?
 }

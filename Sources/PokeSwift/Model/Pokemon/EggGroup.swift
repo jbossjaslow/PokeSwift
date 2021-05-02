@@ -9,13 +9,13 @@ import Foundation
 
 public class EggGroup: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of all Pokemon species that are members of this egg group.
-	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]
+	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]?
 }
 
 extension EggGroup: Requestable {

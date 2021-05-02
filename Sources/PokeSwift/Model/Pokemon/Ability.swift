@@ -9,48 +9,48 @@ import Foundation
 
 public class Ability: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// Whether or not this ability originated in the main series of the video games.
-	public let isMainSeries: Bool
+	public let isMainSeries: Bool?
 	/// The generation this ability originated in.
-	public let generation: NamedAPIResource<Generation>
+	public let generation: NamedAPIResource<Generation>?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// The effect of this ability listed in different languages.
-	public let effectEntries: [VerboseEffect]
+	public let effectEntries: [VerboseEffect]?
 	/// The list of previous effects this ability has had across version groups.
-	public let effectChanges: [AbilityEffectChange]
+	public let effectChanges: [AbilityEffectChange]?
 	/// The flavor text of this ability listed in different languages.
-	public let flavorTextEntries: [AbilityFlavorText]
+	public let flavorTextEntries: [AbilityFlavorText]?
 	/// A list of Pokémon that could potentially have this ability.
-	public let pokemon: [AbilityPokemon]
+	public let pokemon: [AbilityPokemon]?
 }
 
 public class AbilityEffectChange: BaseResourceProtocol {
 	/// The previous effect of this ability listed in different languages.
-	public let effectEntries: [Effect]
+	public let effectEntries: [Effect]?
 	/// The version group in which the previous effect of this ability originated.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 public class AbilityFlavorText: BaseResourceProtocol {
 	/// The localized name for an API resource in a specific language.
-	public let flavorText: String
+	public let flavorText: String?
 	/// The language this text resource is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 	/// The version group that uses this flavor text.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 public class AbilityPokemon: BaseResourceProtocol {
 	/// Whether or not this a hidden ability for the referenced Pokémon.
-	public let isHidden: Bool
+	public let isHidden: Bool?
 	/// Pokémon have 3 ability 'slots' which hold references to possible abilities they could have. This is the slot of this ability for the referenced pokemon.
-	public let slot: Int
+	public let slot: Int?
 	/// The Pokémon this ability could belong to.
-	public let pokemon: NamedAPIResource<Pokemon>
+	public let pokemon: NamedAPIResource<Pokemon>?
 }
 
 extension Ability: Requestable {

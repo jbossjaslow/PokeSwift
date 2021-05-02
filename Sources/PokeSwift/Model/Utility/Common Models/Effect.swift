@@ -9,7 +9,7 @@ import Foundation
 
 public class Effect: BaseResourceProtocol {
 	/// The localized effect text for an API resource in a specific language.
-	public let effect: String
+	public let effect: String?
 	/// The language this effect is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 }

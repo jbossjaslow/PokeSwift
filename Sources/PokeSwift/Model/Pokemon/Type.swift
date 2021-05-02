@@ -9,45 +9,45 @@ import Foundation
 
 public class Type: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A detail of how effective this type is toward others and vice versa.
-	public let damageRelations: TypeRelations
+	public let damageRelations: TypeRelations?
 	/// A list of game indices relevent to this item by generation.
-	public let gameIndices: [GenerationGameIndex]
+	public let gameIndices: [GenerationGameIndex]?
 	/// The generation this type was introduced in.
-	public let generation: NamedAPIResource<Generation>
+	public let generation: NamedAPIResource<Generation>?
 	/// The class of damage inflicted by this type.
-	public let moveDamageClass: NamedAPIResource<MoveDamageClass>
+	public let moveDamageClass: NamedAPIResource<MoveDamageClass>?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of details of Pokémon that have this type.
-	public let pokemon: [TypePokemon]
+	public let pokemon: [TypePokemon]?
 	/// A list of moves that have this type.
-	public let moves: [NamedAPIResource<Move>]
+	public let moves: [NamedAPIResource<Move>]?
 }
 
 public class TypePokemon: BaseResourceProtocol {
 	/// The order the Pokemon's types are listed in.
-	public let slot: Int
+	public let slot: Int?
 	/// The Pokemon that has the referenced type.
-	public let pokemon: NamedAPIResource<Pokemon>
+	public let pokemon: NamedAPIResource<Pokemon>?
 }
 
 public class TypeRelations: BaseResourceProtocol {
 	/// A list of types this type has no effect on.
-	public let noDamageTo: [NamedAPIResource<Type>]
+	public let noDamageTo: [NamedAPIResource<Type>]?
 	/// A list of types this type is not very effect against.
-	public let halfDamageTo: [NamedAPIResource<Type>]
+	public let halfDamageTo: [NamedAPIResource<Type>]?
 	/// A list of types this type is very effect against.
-	public let doubleDamageTo: [NamedAPIResource<Type>]
+	public let doubleDamageTo: [NamedAPIResource<Type>]?
 	/// A list of types that have no effect on this type.
-	public let noDamageFrom: [NamedAPIResource<Type>]
+	public let noDamageFrom: [NamedAPIResource<Type>]?
 	/// A list of types that are not very effective against this type.
-	public let halfDamageFrom: [NamedAPIResource<Type>]
+	public let halfDamageFrom: [NamedAPIResource<Type>]?
 	/// A list of types that are very effective against this type.
-	public let doubleDamageFrom: [NamedAPIResource<Type>]
+	public let doubleDamageFrom: [NamedAPIResource<Type>]?
 }
 
 extension Type: Requestable {

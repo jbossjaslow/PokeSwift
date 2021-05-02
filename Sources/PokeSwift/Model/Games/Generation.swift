@@ -9,23 +9,23 @@ import Foundation
 
 public class Generation: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of abilities that were introduced in this generation.
-	public let abilities: [NamedAPIResource<Ability>]
+	public let abilities: [NamedAPIResource<Ability>]?
 	/// The name of this resource in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// The main region travelled in this generation.
-	public let mainRegion: NamedAPIResource<Region>
+	public let mainRegion: NamedAPIResource<Region>?
 	/// A list of moves that were introduced in this generation.
-	public let moves: [NamedAPIResource<Move>]
+	public let moves: [NamedAPIResource<Move>]?
 	/// A list of Pokemon species that were introduced in this generation.
-	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]
+	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]?
 	/// A list of types that were introduced in this generation.
-	public let types: [NamedAPIResource<Type>]
+	public let types: [NamedAPIResource<Type>]?
 	/// A list of version groups that were introduced in this generation.
-	public let versionGroups: [NamedAPIResource<VersionGroup>]
+	public let versionGroups: [NamedAPIResource<VersionGroup>]?
 }
 
 extension Generation: Requestable {

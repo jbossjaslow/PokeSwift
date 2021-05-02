@@ -9,13 +9,13 @@ import Foundation
 
 public class ItemFlingEffect: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The result of this fling effect listed in different languages.
-	public let effectEntries: [Effect]
+	public let effectEntries: [Effect]?
 	/// A list of items that hanve this fling effect.
-	public let items: [NamedAPIResource<Item>]
+	public let items: [NamedAPIResource<Item>]?
 }
 
 extension ItemFlingEffect: Requestable {

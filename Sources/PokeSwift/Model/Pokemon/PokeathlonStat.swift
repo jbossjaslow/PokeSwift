@@ -9,27 +9,27 @@ import Foundation
 
 public class PokeathlonStat: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A detail of natures which affect this Pokéathlon stat positively or negatively.
-	public let affectingNatures: NaturePokeathlonStatAffectSets
+	public let affectingNatures: NaturePokeathlonStatAffectSets?
 }
 
 public class NaturePokeathlonStatAffect: BaseResourceProtocol {
 	/// The maximum amount of change to the referenced Pokéathlon stat.
-	public let maxChange: Int
+	public let maxChange: Int?
 	/// The nature causing the change.
-	public let nature: NamedAPIResource<Nature>
+	public let nature: NamedAPIResource<Nature>?
 }
 
 public class NaturePokeathlonStatAffectSets: BaseResourceProtocol {
 	/// A list of natures and how they change the referenced Pokéathlon stat.
-	public let increase: [NaturePokeathlonStatAffect]
+	public let increase: [NaturePokeathlonStatAffect]?
 	/// A list of natures and how they change the referenced Pokéathlon stat.
-	public let decrease: [NaturePokeathlonStatAffect]
+	public let decrease: [NaturePokeathlonStatAffect]?
 }
 
 extension PokeathlonStat: Requestable {
