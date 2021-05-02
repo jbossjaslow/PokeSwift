@@ -12,7 +12,7 @@ public struct NamedAPIResource<Type: BaseResourceProtocol>: BaseResourceProtocol
 	public let url: String
 }
 
-extension NamedAPIResource {
+public extension NamedAPIResource {
 	func request(completion: @escaping (_ result: Type?) -> Void) {
 		SessionManager.makeRequest(url: url) { (_ result: Result<Type, APIError>) in
 			switch result {

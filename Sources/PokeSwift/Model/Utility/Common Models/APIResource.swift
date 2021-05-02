@@ -10,7 +10,7 @@ public struct APIResource<Type: BaseResourceProtocol>: BaseResourceProtocol {
 	public let url: String
 }
 
-extension APIResource {
+public extension APIResource {
 	func request(completion: @escaping (_ result: Type?) -> Void) {
 		SessionManager.makeRequest(url: url) { (_ result: Result<Type, APIError>) in
 			switch result {
