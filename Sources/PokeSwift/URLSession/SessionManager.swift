@@ -42,27 +42,30 @@ public struct SessionManager {
 										  error: Error?,
 										  completion: @escaping (Result<Data, APIError>) -> Void) {
 		if let error = error {
-			print(error.localizedDescription)
+			print("Server error. Description: \(error.localizedDescription)")
 			completion(.failure(.serverError))
 			return
 		}
 		
-		guard let httpResponse = response as? HTTPURLResponse,
-			  200..<300 ~= httpResponse.statusCode else {
-			print("Bad response, check input")
-			completion(.failure(.serverError))
-			return
+		if let httpResponse = response as? HTTPURLResponse,
+		   let status = httpResponse.status {
+			switch status.responseType {
+				case .success:
+					break
+				default:
+					completion(.failure(.httpStatusCodeError(status)))
+			}
 		}
 		
 		guard let mime = response?.mimeType,
 			  mime == "application/json" else {
-			print("Wrong mime type, expecting json")
+			print("Wrong mime type, expecting json. Received mime type was \(response?.mimeType ?? "ERROR RETRIEVING MIME TYPE")")
 			completion(.failure(.parsingError))
 			return
 		}
 		
 		guard let data = data else {
-			print(error!.localizedDescription)
+			print("Data is nil. Error: \(error?.localizedDescription ?? "NO ERROR GIVEN")")
 			completion(.failure(.parsingError))
 			return
 		}

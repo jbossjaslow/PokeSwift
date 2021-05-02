@@ -12,6 +12,7 @@ public enum APIError: Error {
 	case serverError
 	case parsingError
 	case jsonDecodingError
+	case httpStatusCodeError(HTTPStatusCode)
 }
 
 extension APIError: LocalizedError {
@@ -28,6 +29,9 @@ extension APIError: LocalizedError {
 										 comment: "Custom error")
 			case .jsonDecodingError:
 				return NSLocalizedString("There was an error decoding the JSON",
+										 comment: "Custom error")
+			case .httpStatusCodeError(let status):
+				return NSLocalizedString("There was an abnormal http status code: \(status.rawValue) - \(status.localizedDescription)",
 										 comment: "Custom error")
 		}
 	}
