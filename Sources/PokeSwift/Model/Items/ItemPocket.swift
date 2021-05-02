@@ -9,13 +9,13 @@ import Foundation
 
 public class ItemPocket: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of item categories that are relevant to this item pocket.
-	public let categories: [NamedAPIResource<ItemCategory>]
+	public let categories: [NamedAPIResource<ItemCategory>]?
 	/// The name of this item in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 extension ItemPocket: Requestable {

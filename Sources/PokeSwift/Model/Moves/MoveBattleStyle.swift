@@ -9,11 +9,11 @@ import Foundation
 
 public class MoveBattleStyle: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 extension MoveBattleStyle: Requestable {

@@ -9,51 +9,51 @@ import Foundation
 
 public class Move: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The percent value of how likely this move is to be successful.
-	public let accuracy: Int
+	public let accuracy: Int?
 	/// The percent value of how likely it is this moves effect will happen.
 	public let effectChance: Int?
 	/// Power points. The number of times this move can be used.
-	public let pp: Int
+	public let pp: Int?
 	/// A value between -8 and 8. Sets the order in which moves are executed during battle. See Bulbapedia for greater detail.
-	public let priority: Int
+	public let priority: Int?
 	/// The base power of this move with a value of 0 if it does not have a base power.
-	public let power: Int
+	public let power: Int?
 	/// A detail of normal and super contest combos that require this move.
-	public let contestCombos: ContestComboSets
+	public let contestCombos: ContestComboSets?
 	/// The type of appeal this move gives a Pokémon when used in a contest.
-	public let contestType: NamedAPIResource<ContestType>
+	public let contestType: NamedAPIResource<ContestType>?
 	/// The effect the move has when used in a contest.
-	public let contestEffect: APIResource<ContestEffect>
+	public let contestEffect: APIResource<ContestEffect>?
 	/// The type of damage the move inflicts on the target, e.g. physical.
-	public let damageClass: NamedAPIResource<MoveDamageClass>
+	public let damageClass: NamedAPIResource<MoveDamageClass>?
 	/// The effect of this move listed in different languages.
-	public let effectEntries: [VerboseEffect]
+	public let effectEntries: [VerboseEffect]?
 	/// The list of previous effects this move has had across version groups of the games.
-	public let effectChanges: [AbilityEffectChange]
+	public let effectChanges: [AbilityEffectChange]?
 	/// The flavor text of this move listed in different languages.
-	public let flavorTextEntries: [MoveFlavorText]
+	public let flavorTextEntries: [MoveFlavorText]?
 	/// The generation in which this move was introduced.
-	public let generation: NamedAPIResource<Generation>
+	public let generation: NamedAPIResource<Generation>?
 	/// A list of the machines that teach this move.
-	public let machines: [MachineVersionDetail]
+	public let machines: [MachineVersionDetail]?
 	/// Metadata about this move
-	public let meta: MoveMetaData
+	public let meta: MoveMetaData?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of move resource value changes across version groups of the game.
-	public let pastValues: [PastMoveStatValues]
+	public let pastValues: [PastMoveStatValues]?
 	/// A list of stats this moves effects and how much it effects them.
-	public let statChanges: [MoveStatChange]
+	public let statChanges: [MoveStatChange]?
 	/// The effect the move has when used in a super contest.
-	public let superContestEffect: APIResource<SuperContestEffect>
+	public let superContestEffect: APIResource<SuperContestEffect>?
 	/// The type of target that will receive the effects of the attack.
-	public let target: NamedAPIResource<MoveTarget>
+	public let target: NamedAPIResource<MoveTarget>?
 	/// The elemental type of this move.
-	public let type: NamedAPIResource<Type>
+	public let type: NamedAPIResource<Type>?
 }
 
 public class ContestComboDetail: BaseResourceProtocol {
@@ -70,9 +70,9 @@ public class ContestComboSets: BaseResourceProtocol {
 	}
 	
 	/// A detail of moves this move can be used before or after, granting additional appeal points in contests.
-	public let normal: ContestComboDetail
+	public let normal: ContestComboDetail?
 	/// A detail of moves this move can be used before or after, granting additional appeal points in contests.
-	public let superCombo: ContestComboDetail
+	public let superCombo: ContestComboDetail?
 	
 	required public init(from decoder: Decoder) throws {
 		let sets = try decoder.container(keyedBy: CodingKeys.self)
@@ -83,18 +83,18 @@ public class ContestComboSets: BaseResourceProtocol {
 
 public class MoveFlavorText: BaseResourceProtocol {
 	/// The localized flavor text for an api resource in a specific language.
-	public let flavorText: String
+	public let flavorText: String?
 	/// The language this name is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 	/// The version group that uses this flavor text.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 public class MoveMetaData: BaseResourceProtocol {
 	/// The status ailment this move inflicts on its target.
-	public let ailment: NamedAPIResource<MoveAilment>
+	public let ailment: NamedAPIResource<MoveAilment>?
 	/// The category of move this move falls under, e.g. damage or ailment.
-	public let category: NamedAPIResource<MoveCategory>
+	public let category: NamedAPIResource<MoveCategory>?
 	/// The minimum number of times this move hits. Null if it always only hits once.
 	public let minHits: Int?
 	/// The maximum number of times this move hits. Null if it always only hits once.
@@ -104,41 +104,41 @@ public class MoveMetaData: BaseResourceProtocol {
 	/// The maximum number of turns this move continues to take effect. Null if it always only lasts one turn.
 	public let maxTurns: Int?
 	/// HP drain (if positive) or Recoil damage (if negative), in percent of damage done.
-	public let drain: Int
+	public let drain: Int?
 	/// The amount of hp gained by the attacking Pokemon, in percent of it's maximum HP.
-	public let healing: Int
+	public let healing: Int?
 	/// Critical hit rate bonus.
-	public let critRate: Int
+	public let critRate: Int?
 	/// The likelihood this attack will cause an ailment.
-	public let ailmentChance: Int
+	public let ailmentChance: Int?
 	/// The likelihood this attack will cause the target Pokémon to flinch.
-	public let flinchChance: Int
+	public let flinchChance: Int?
 	/// The likelihood this attack will cause a stat change in the target Pokémon.
-	public let statChance: Int
+	public let statChance: Int?
 }
 
 public class MoveStatChange: BaseResourceProtocol {
 	/// The amount of change.
-	public let change: Int
+	public let change: Int?
 	/// The stat being affected.
-	public let stat: NamedAPIResource<Stat>
+	public let stat: NamedAPIResource<Stat>?
 }
 
 public class PastMoveStatValues: BaseResourceProtocol {
 	/// The percent value of how likely this move is to be successful.
-	public let accuracy: Int
+	public let accuracy: Int?
 	/// The percent value of how likely it is this moves effect will take effect.
-	public let effectChance: Int
+	public let effectChance: Int?
 	/// The base power of this move with a value of 0 if it does not have a base power.
-	public let power: Int
+	public let power: Int?
 	/// Power points. The number of times this move can be used.
-	public let pp: Int
+	public let pp: Int?
 	/// The effect of this move listed in different languages.
-	public let effectEntries: [VerboseEffect]
+	public let effectEntries: [VerboseEffect]?
 	/// The elemental type of this move.
-	public let type: NamedAPIResource<Type>
+	public let type: NamedAPIResource<Type>?
 	/// The version group in which these move stat values were in effect.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 extension Move: Requestable {

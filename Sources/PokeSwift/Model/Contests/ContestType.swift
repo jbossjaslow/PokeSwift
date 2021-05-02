@@ -9,22 +9,22 @@ import Foundation
 
 public class ContestType: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The berry flavor that correlates with this contest type.
-	public let berryFlavor: NamedAPIResource<BerryFlavor>
+	public let berryFlavor: NamedAPIResource<BerryFlavor>?
 	/// The name of this contest type listed in different languages.
-	public let names: [ContestName]
+	public let names: [ContestName]?
 }
 
 public class ContestName: BaseResourceProtocol {
 	/// The name for this contest.
-	public let name: String
+	public let name: String?
 	/// The color associated with this contest's name.
-	public let color: String
+	public let color: String?
 	/// The language that this name is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 }
 
 extension ContestType: Requestable {

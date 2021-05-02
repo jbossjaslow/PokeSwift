@@ -9,13 +9,13 @@ import Foundation
 
 public class MoveAilment: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of moves that cause this ailment.
-	public let moves: [NamedAPIResource<Move>]
+	public let moves: [NamedAPIResource<Move>]?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 extension MoveAilment: Requestable {

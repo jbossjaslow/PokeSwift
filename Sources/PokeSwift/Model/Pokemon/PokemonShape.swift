@@ -9,22 +9,22 @@ import Foundation
 
 public class PokemonShape: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The "scientific" name of this Pokemon shape listed in different languages.
-	public let awesomeNames: [AwesomeName]
+	public let awesomeNames: [AwesomeName]?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of the Pokemon species that have this shape.
-	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]
+	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]?
 }
 
 public class AwesomeName: BaseResourceProtocol {
 	/// The localized "scientific" name for an API resource in a specific language.
-	public let awesomeName: String
+	public let awesomeName: String?
 	/// The language this "scientific" name is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 }
 
 extension PokemonShape: Requestable {

@@ -9,9 +9,9 @@ import Foundation
 
 public class LocationAreaEncounter: BaseResourceProtocol {
 	/// The location area the referenced Pokémon can be encountered in.
-	public let locationArea: NamedAPIResource<LocationArea>
+	public let locationArea: NamedAPIResource<LocationArea>?
 	/// A list of versions and encounters with the referenced Pokémon that might happen.
-	public let versionDetails: [VersionEncounterDetail]
+	public let versionDetails: [VersionEncounterDetail]?
 }
 
 extension LocationAreaEncounter: Requestable {

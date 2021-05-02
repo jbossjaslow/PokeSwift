@@ -9,9 +9,9 @@ import Foundation
 
 public class VersionGroupFlavorText: BaseResourceProtocol {
 	/// The localized name for an API resource in a specific language.
-	public let text: String
+	public let text: String?
 	/// The language this name is in.
-	public let language: NamedAPIResource<Language>
+	public let language: NamedAPIResource<Language>?
 	/// The version group which uses this flavor text.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }

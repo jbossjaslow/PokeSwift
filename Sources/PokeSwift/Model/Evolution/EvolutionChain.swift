@@ -9,22 +9,22 @@ import Foundation
 
 public class EvolutionChain: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The item that a Pokémon would be holding when mating that would trigger the egg hatching a baby Pokémon rather than a basic Pokémon.
 	public let babyTriggerItem: NamedAPIResource<Item>?
 	/// The base chain link object. Each link contains evolution details for a Pokémon in the chain. Each link references the next Pokémon in the natural evolution order.
-	public let chain: ChainLink
+	public let chain: ChainLink?
 }
 
 public class ChainLink: BaseResourceProtocol {
 	/// Whether or not this link is for a baby Pokémon. This would only ever be true on the base link.
-	public let isBaby: Bool
+	public let isBaby: Bool?
 	/// The Pokémon species at this point in the evolution chain.
-	public let species: NamedAPIResource<PokemonSpecies>
+	public let species: NamedAPIResource<PokemonSpecies>?
 	/// All details regarding the specific details of the referenced Pokémon species evolution.
-	public let evolutionDetails: [EvolutionDetail]
+	public let evolutionDetails: [EvolutionDetail]?
 	/// A List of chain objects.
-	public let evolvesTo: [ChainLink]
+	public let evolvesTo: [ChainLink]?
 }
 
 public class EvolutionDetail: BaseResourceProtocol {

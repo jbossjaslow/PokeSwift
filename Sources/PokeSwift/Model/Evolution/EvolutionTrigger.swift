@@ -9,13 +9,13 @@ import Foundation
 
 public class EvolutionTrigger: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of pokemon species that result from this evolution trigger.
-	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]
+	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]?
 }
 
 extension EvolutionTrigger: Requestable {

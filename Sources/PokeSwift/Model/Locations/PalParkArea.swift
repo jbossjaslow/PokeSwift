@@ -9,22 +9,22 @@ import Foundation
 
 public class PalParkArea: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The name of this item in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 	/// A list of Pokemon encounteres in the Pal Park area along with details.
-	public let pokemonEncounters: [PalParkEncounterSpecies]
+	public let pokemonEncounters: [PalParkEncounterSpecies]?
 }
 
 public class PalParkEncounterSpecies: BaseResourceProtocol {
 	/// The base score given to the player when this Pokemon is caught during a Pal Park run.
-	public let baseScore: Int
+	public let baseScore: Int?
 	/// The base rate for encountering this Pokemon in this Pal Park area.
-	public let rate: Int
+	public let rate: Int?
 	/// The Pokemon species being encountered.
-	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>
+	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>?
 }
 
 extension PalParkArea: Requestable {

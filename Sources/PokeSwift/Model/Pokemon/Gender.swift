@@ -9,20 +9,20 @@ import Foundation
 
 public class Gender: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of Pokémon species that can be this gender and how likely it is that they will be.
-	public let pokemonSpeciesDetails: [PokemonSpeciesGender]
+	public let pokemonSpeciesDetails: [PokemonSpeciesGender]?
 	/// A list of Pokémon species that required this gender in order for a Pokémon to evolve into them.
-	public let requiredForEvolution: [NamedAPIResource<PokemonSpecies>]
+	public let requiredForEvolution: [NamedAPIResource<PokemonSpecies>]?
 }
 
 public class PokemonSpeciesGender: BaseResourceProtocol {
 	/// The chance of this Pokémon being female, in eighths; or -1 for genderless.
-	public let rate: Int
+	public let rate: Int?
 	/// A Pokémon species that can be the referenced gender.
-	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>
+	public let pokemonSpecies: NamedAPIResource<PokemonSpecies>?
 }
 
 extension Gender: Requestable {

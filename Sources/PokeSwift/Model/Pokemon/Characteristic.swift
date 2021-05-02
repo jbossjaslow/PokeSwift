@@ -9,11 +9,11 @@ import Foundation
 
 public class Characteristic: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The remainder of the highest stat/IV divided by 5.
-	public let geneModulo: Int
+	public let geneModulo: Int?
 	/// The possible values of the highest stat that would result in a Pokémon recieving this characteristic when divided by 5.
-	public let possibleValues: [Int]
+	public let possibleValues: [Int]?
 }
 
 extension Characteristic: Requestable {

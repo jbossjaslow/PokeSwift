@@ -9,24 +9,24 @@ import Foundation
 
 public class GrowthRate: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The formula used to calculate the rate at which the Pokémon species gains level.
-	public let formula: String
+	public let formula: String?
 	/// The descriptions of this characteristic listed in different languages.
-	public let descriptions: [Description]
+	public let descriptions: [Description]?
 	/// A list of levels and the amount of experienced needed to atain them based on this growth rate.
-	public let levels: [GrowthRateExperienceLevel]
+	public let levels: [GrowthRateExperienceLevel]?
 	/// A list of Pokémon species that gain levels at this growth rate.
-	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]
+	public let pokemonSpecies: [NamedAPIResource<PokemonSpecies>]?
 }
 
 public class GrowthRateExperienceLevel: BaseResourceProtocol {
 	/// The level gained.
-	public let level: Int
+	public let level: Int?
 	/// The amount of experience required to reach the referenced level.
-	public let experience: Int
+	public let experience: Int?
 }
 
 //TODO: - Figure out what format formula is in and parse that, too

@@ -9,7 +9,7 @@ import Foundation
 
 public class MachineVersionDetail: BaseResourceProtocol {
 	/// The machine that teaches a move from an item.
-	public let machine: APIResource<Machine>
+	public let machine: APIResource<Machine>?
 	/// The version group of this specific machine.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }

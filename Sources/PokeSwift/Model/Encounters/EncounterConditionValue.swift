@@ -9,13 +9,13 @@ import Foundation
 
 public class EncounterConditionValue: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The condition this encounter condition value pertains to.
-	public let condition: NamedAPIResource<EncounterCondition>
+	public let condition: NamedAPIResource<EncounterCondition>?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 extension EncounterConditionValue: Requestable {

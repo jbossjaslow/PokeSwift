@@ -9,9 +9,9 @@ import Foundation
 
 public class Nature: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// The stat decreased by 10% in Pokémon with this nature.
 	public let decreasedStat: NamedAPIResource<Stat>?
 	/// The stat increased by 10% in Pokémon with this nature.
@@ -21,27 +21,27 @@ public class Nature: BaseResourceProtocol {
 	/// The flavor liked by Pokémon with this nature.
 	public let likesFlavor: NamedAPIResource<BerryFlavor>?
 	/// A list of Pokéathlon stats this nature effects and how much it effects them.
-	public let pokeathlonStatChanges: [NatureStatChange]
+	public let pokeathlonStatChanges: [NatureStatChange]?
 	/// A list of battle styles and how likely a Pokémon with this nature is to use them in the Battle Palace or Battle Tent.
-	public let moveBattleStylePreferences: [MoveBattleStylePreference]
+	public let moveBattleStylePreferences: [MoveBattleStylePreference]?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 public class MoveBattleStylePreference: BaseResourceProtocol {
 	/// Chance of using the move, in percent, if HP is under one half.
-	public let lowHpPreference: Int
+	public let lowHpPreference: Int?
 	/// Chance of using the move, in percent, if HP is over one half.
-	public let highHpPreference: Int
+	public let highHpPreference: Int?
 	/// The move battle style.
-	public let moveBattleStyle: NamedAPIResource<MoveBattleStyle>
+	public let moveBattleStyle: NamedAPIResource<MoveBattleStyle>?
 }
 
 public class NatureStatChange: BaseResourceProtocol {
 	/// The amount of change.
-	public let maxChange: Int
+	public let maxChange: Int?
 	/// The stat being affected.
-	public let pokeathlonStat: NamedAPIResource<PokeathlonStat>
+	public let pokeathlonStat: NamedAPIResource<PokeathlonStat>?
 }
 
 extension Nature: Requestable {

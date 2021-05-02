@@ -9,66 +9,42 @@ import Foundation
 
 public class Berry: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// Time it takes the tree to grow one stage, in hours. Berry trees go through four of these growth stages before they can be picked.
-	public let growthTime: Int
+	public let growthTime: Int?
 	/// The maximum number of these berries that can grow on one tree in Generation IV.
-	public let maxHarvest: Int
+	public let maxHarvest: Int?
 	/// The power of the move "Natural Gift" when used with this Berry.
-	public let naturalGiftPower: Int
+	public let naturalGiftPower: Int?
 	/// The size of this Berry, in millimeters.
-	public let size: Int
+	public let size: Int?
 	/// The smoothness of this Berry, used in making Pokéblocks or Poffins.
-	public let smoothness: Int
+	public let smoothness: Int?
 	/// The speed at which this Berry dries out the soil as it grows. A higher rate means the soil dries more quickly.
-	public let soilDryness: Int
+	public let soilDryness: Int?
 	/// The firmness of this berry, used in making Pokéblocks or Poffins.
-	public let firmness: NamedAPIResource<BerryFirmness>
+	public let firmness: NamedAPIResource<BerryFirmness>?
 	/// A list of references to each flavor a berry can have and the potency of each of those flavors in regard to this berry.
-	public let flavors: [BerryFlavorMap]
+	public let flavors: [BerryFlavorMap]?
 	/// Berries are actually items. This is a reference to the item specific data for this berry.
-	public let item: NamedAPIResource<Item>
+	public let item: NamedAPIResource<Item>?
 	/// The type inherited by "Natural Gift" when used with this Berry.  
-	public let naturalGiftType: NamedAPIResource<Type>
+	public let naturalGiftType: NamedAPIResource<Type>?
 }
 
 public class BerryFlavorMap: BaseResourceProtocol {
 	/// How powerful the referenced flavor is for this berry.
-	public let potency: Int
+	public let potency: Int?
 	/// The referenced berry flavor.
-	public let flavor: NamedAPIResource<BerryFlavor>
+	public let flavor: NamedAPIResource<BerryFlavor>?
 }
 
 extension Berry: Requestable {
 	public static var url: String {
 		"https://pokeapi.co/api/v2/berry/"
 	}
-	
-//	public static func request<T>(using input: RequestInputType,
-//								  completion: @escaping (T?) -> Void) where T: BaseResourceProtocol {
-//		var inputAsString = ""
-//		switch input {
-//			case .string(let s):
-//				inputAsString = s
-//			case .int(let i):
-//				inputAsString = "\(i)"
-//		}
-//
-//		let queryURL = url + inputAsString
-//		SessionManager.makeRequest(url: queryURL) { (_ result: Result<Self, APIError>) in
-//			switch result {
-//				case .success(let requestedResult):
-//					completion(requestedResult as? T)
-//					return
-//				case .failure(let error):
-//					print(error.localizedDescription)
-//					completion(nil)
-//					return
-//			}
-//		}
-//	}
 	
 	public static var testResponse: String {
 		#"""

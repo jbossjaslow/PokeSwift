@@ -9,22 +9,22 @@ import Foundation
 
 public class BerryFlavor: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A list of the berries with this flavor.
-	public let berries: [FlavorBerryMap]
+	public let berries: [FlavorBerryMap]?
 	/// The contest type that correlates with this berry flavor.
-	public let contestType: NamedAPIResource<ContestType>
+	public let contestType: NamedAPIResource<ContestType>?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 public class FlavorBerryMap: BaseResourceProtocol {
 	/// How powerful the referenced flavor is for this berry.
-	public let potency: Int
+	public let potency: Int?
 	/// The berry with the referenced flavor.
-	public let berry: NamedAPIResource<Berry>
+	public let berry: NamedAPIResource<Berry>?
 }
 
 extension BerryFlavor: Requestable {

@@ -9,13 +9,13 @@ import Foundation
 
 public class Machine: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The TM or HM item that corresponds to this machine.
-	public let item: NamedAPIResource<Item>
+	public let item: NamedAPIResource<Item>?
 	/// The move that is taught by this machine.
-	public let move: NamedAPIResource<Move>
+	public let move: NamedAPIResource<Move>?
 	/// The version group that this machine applies to.
-	public let versionGroup: NamedAPIResource<VersionGroup>
+	public let versionGroup: NamedAPIResource<VersionGroup>?
 }
 
 extension Machine: Requestable {

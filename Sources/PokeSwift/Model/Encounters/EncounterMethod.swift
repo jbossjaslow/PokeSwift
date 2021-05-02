@@ -9,13 +9,13 @@ import Foundation
 
 public class EncounterMethod: BaseResourceProtocol {
 	/// The identifier for this resource.
-	public let id: Int
+	public let id: Int?
 	/// The name for this resource.
-	public let name: String
+	public let name: String?
 	/// A good value for sorting.
-	public let order: Int
+	public let order: Int?
 	/// The name of this resource listed in different languages.
-	public let names: [Name]
+	public let names: [Name]?
 }
 
 extension EncounterMethod: Requestable {
