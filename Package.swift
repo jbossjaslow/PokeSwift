@@ -23,6 +23,9 @@ let package = Package(
             dependencies: []),
         .testTarget(
             name: "PokeSwiftTests",
-            dependencies: ["PokeSwift"]),
+            dependencies: ["PokeSwift"],
+			resources: [
+				.copy("Resources/berryTest.json")
+			]),
     ]
 )

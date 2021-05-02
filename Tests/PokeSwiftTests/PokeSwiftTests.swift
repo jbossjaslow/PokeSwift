@@ -2,14 +2,19 @@ import XCTest
 @testable import PokeSwift
 
 final class PokeSwiftTests: XCTestCase {
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct
-        // results.
-        XCTAssertEqual(PokeSwift().text, "Hello, World!")
-    }
+	override func setUp() {
+		super.setUp()
+	}
+	
+	override func tearDown() {
+		super.tearDown()
+	}
 
     static var allTests = [
-        ("testExample", testExample),
+        ("testPass", testPass)
     ]
+	
+	func testPass() {
+		XCTAssertTrue(true)
+	}
 }
