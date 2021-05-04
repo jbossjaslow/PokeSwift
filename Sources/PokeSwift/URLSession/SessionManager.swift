@@ -6,12 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
 public struct SessionManager {
 	
+	public enum MimeType: String {
+		case json = "application/json"
+		case image = "image/png"
+	}
+	
+	//MARK: - Make requests
 	public static func makeRequest<T:BaseResourceProtocol>(url: String,
 														   completion: @escaping ((Result<T, APIError>) -> Void)) {
-		call(url: url) { result in
+		call(url: url,
+			 requestType: .json) { result in
 			switch result {
 				case .success(let data):
 					decodeJSON(from: data,
@@ -22,10 +30,31 @@ public struct SessionManager {
 		}
 	}
 	
+	public static func requestImage(url: String,
+									completion: @escaping ((Result<UIImage, APIError>) -> Void)) {
+		call(url: url,
+			 requestType: .image) { result in
+			switch result {
+				case .success(let data):
+					if let image = UIImage(data: data) {
+						completion(.success(image))
+						return
+					} else {
+						fallthrough
+					}
+				default:
+					completion(.failure(.imageDecodingError))
+			}
+		}
+	}
+	
+	//MARK: - Call and handle response
 	public static func call(url: String,
+							requestType: MimeType,
 							completion: @escaping (Result<Data, APIError>) -> Void) {
 		guard let url = URL(string: url) else {
-			fatalError("There is a problem creating the url")
+			completion(.failure(.internalError))
+			return
 		}
 		let session = URLSession.shared
 		
@@ -33,6 +62,7 @@ public struct SessionManager {
 			handleCallResponse(data: data,
 							   response: response,
 							   error: error,
+							   requestType: requestType,
 							   completion: completion)
 		}.resume()
 	}
@@ -40,6 +70,7 @@ public struct SessionManager {
 	public static func handleCallResponse(data: Data?,
 										  response: URLResponse?,
 										  error: Error?,
+										  requestType: MimeType,
 										  completion: @escaping (Result<Data, APIError>) -> Void) {
 		if let error = error {
 			print("Server error. Description: \(error.localizedDescription)")
@@ -58,8 +89,8 @@ public struct SessionManager {
 		}
 		
 		guard let mime = response?.mimeType,
-			  mime == "application/json" else {
-			print("Wrong mime type, expecting json. Received mime type was \(response?.mimeType ?? "ERROR RETRIEVING MIME TYPE")")
+			  mime == requestType.rawValue else {
+			print("Wrong mime type, expecting \(requestType.rawValue). Received mime type was \(response?.mimeType ?? "ERROR RETRIEVING MIME TYPE")")
 			completion(.failure(.parsingError))
 			return
 		}
