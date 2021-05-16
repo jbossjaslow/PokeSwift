@@ -15,7 +15,8 @@ public protocol Requestable {
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
 	static func requestList<T>(resourceLimit: Int,
-							   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
+							   offset: Int,
+							   completion: @escaping ([NamedAPIResource<T>]?) -> Void) where T: BaseResourceProtocol
 	/// Test response used for debugging purposes
 	static var testResponse: String { get }
 }
@@ -40,12 +41,13 @@ public extension Requestable {
 	*/
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
-		var inputAsString = ""
-		switch input {
-			case .name(let s):
-				inputAsString = s
-			case .id(let i):
-				inputAsString = "\(i)"
+		var inputAsString: String {
+			switch input {
+				case .name(let s):
+					return s
+				case .id(let i):
+					return "\(i)"
+			}
 		}
 		
 		let queryURL = url + inputAsString
@@ -62,12 +64,27 @@ public extension Requestable {
 		}
 	}
 	
-	static func requestList<T>(resourceLimit: Int = 20,
-							   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol {
-		SessionManager.makeRequest(url: url) { (_ result: Result<T, APIError>) in
+	static func requestList<T>(resourceLimit: Int = -1,
+							   offset: Int = -1,
+							   completion: @escaping ([NamedAPIResource<T>]?) -> Void) where T: BaseResourceProtocol {
+		var adjustedURL: String {
+			switch (resourceLimit, offset) {
+				case (-1, -1): return url
+				case (0...,-1):
+					return url + "?limit=\(resourceLimit)"
+				case (-1,0...):
+					return url + "?offset=\(offset)"
+				case (0...,0...):
+					return url + "?offset=\(offset)&limit=\(resourceLimit)"
+				default:
+					return ""
+			}
+		}
+		
+		SessionManager.makeRequest(url: adjustedURL) { (_ result: Result<PagedList<T>, APIError>) in
 			switch result {
 				case .success(let requestedResult):
-					completion(requestedResult)
+					completion(requestedResult.results)
 					return
 				case .failure(let error):
 					print(error.localizedDescription)
