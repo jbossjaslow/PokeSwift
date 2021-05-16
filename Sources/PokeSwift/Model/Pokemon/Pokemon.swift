@@ -44,6 +44,24 @@ public class Pokemon: BaseResourceProtocol {
 	public let types: [PokemonType]?
 }
 
+public extension Pokemon {
+//	static func isAForm(name: String) -> Bool {
+//		let nameArr = name.components(separatedBy: "-")
+//
+//		if nameArr.count == 1 {
+//			//If there is no dash, then it is for sure not a form
+//			return false
+//		} else {
+//			//There is something after the dash
+//			let extraCharacters = nameArr[1]
+//
+//			//The most characters for a non-form pokemon after the dash is 2 (Ho-Oh); all others is 1
+//			//Totem is 5, gmax is 4,
+//			return extraCharacters.count > 2
+//		}
+//	}
+}
+
 public class PokemonAbility: BaseResourceProtocol {
 	/// Whether or not this is a hidden ability.
 	public let isHidden: Bool?

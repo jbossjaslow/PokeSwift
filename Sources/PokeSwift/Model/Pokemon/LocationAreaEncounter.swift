@@ -24,9 +24,9 @@ extension LocationAreaEncounter: Requestable {
 						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
 		var inputAsString = ""
 		switch input {
-			case .string(let s):
+			case .name(let s):
 				inputAsString = s
-			case .int(let i):
+			case .id(let i):
 				inputAsString = "\(i)"
 		}
 		

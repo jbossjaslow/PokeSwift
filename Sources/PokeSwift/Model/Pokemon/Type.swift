@@ -14,7 +14,7 @@ public class Type: BaseResourceProtocol {
 	public let name: String?
 	/// A detail of how effective this type is toward others and vice versa.
 	public let damageRelations: TypeRelations?
-	/// A list of game indices relevent to this item by generation.
+	/// A list of game indices relevent to this type by generation.
 	public let gameIndices: [GenerationGameIndex]?
 	/// The generation this type was introduced in.
 	public let generation: NamedAPIResource<Generation>?

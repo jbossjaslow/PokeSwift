@@ -6,14 +6,16 @@
 //
 
 public enum RequestInputType {
-	case string(String)
-	case int(Int)
+	case name(String)
+	case id(Int)
 }
 
 public protocol Requestable {
 	static var url: String { get }
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
+	static func requestList<T>(resourceLimit: Int,
+							   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
 	/// Test response used for debugging purposes
 	static var testResponse: String { get }
 }
@@ -40,14 +42,29 @@ public extension Requestable {
 						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
 		var inputAsString = ""
 		switch input {
-			case .string(let s):
+			case .name(let s):
 				inputAsString = s
-			case .int(let i):
+			case .id(let i):
 				inputAsString = "\(i)"
 		}
 		
 		let queryURL = url + inputAsString
 		SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
+			switch result {
+				case .success(let requestedResult):
+					completion(requestedResult)
+					return
+				case .failure(let error):
+					print(error.localizedDescription)
+					completion(nil)
+					return
+			}
+		}
+	}
+	
+	static func requestList<T>(resourceLimit: Int = 20,
+							   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol {
+		SessionManager.makeRequest(url: url) { (_ result: Result<T, APIError>) in
 			switch result {
 				case .success(let requestedResult):
 					completion(requestedResult)
