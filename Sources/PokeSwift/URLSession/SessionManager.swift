@@ -18,6 +18,11 @@ public struct SessionManager {
 	//MARK: - Make requests
 	public static func makeRequest<T:BaseResourceProtocol>(url: String,
 														   completion: @escaping ((Result<T, APIError>) -> Void)) {
+		guard !url.isEmpty else {
+			completion(.failure(.internalError))
+			return
+		}
+		
 		call(url: url,
 			 requestType: .json) { result in
 			switch result {
@@ -32,6 +37,11 @@ public struct SessionManager {
 	
 	public static func requestImage(url: String,
 									completion: @escaping ((Result<UIImage, APIError>) -> Void)) {
+		guard !url.isEmpty else {
+			completion(.failure(.internalError))
+			return
+		}
+		
 		call(url: url,
 			 requestType: .image) { result in
 			switch result {
@@ -52,7 +62,8 @@ public struct SessionManager {
 	public static func call(url: String,
 							requestType: MimeType,
 							completion: @escaping (Result<Data, APIError>) -> Void) {
-		guard let url = URL(string: url) else {
+		guard !url.isEmpty,
+			  let url = URL(string: url) else {
 			completion(.failure(.internalError))
 			return
 		}
