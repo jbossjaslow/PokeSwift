@@ -18,15 +18,21 @@ extension NamedAPIResource where ResourceType: Pokemon {
 
 public extension NamedAPIResource {
 	func request(completion: @escaping (_ result: ResourceType?) -> Void) {
-		SessionManager.makeRequest(url: url) { (_ result: Result<ResourceType, APIError>) in
-			switch result {
-				case .success(let requestedResult):
-					completion(requestedResult)
-					return
-				case .failure(let error):
-					print(error.localizedDescription)
-					completion(nil)
-					return
+		if let cachedObject = baseResourceCache[url] as? ResourceType {
+			completion(cachedObject)
+			return
+		} else {
+			SessionManager.makeRequest(url: url) { (_ result: Result<ResourceType, APIError>) in
+				switch result {
+					case .success(let requestedResult):
+						completion(requestedResult)
+						baseResourceCache[url] = requestedResult
+						return
+					case .failure(let error):
+						print(error.localizedDescription)
+						completion(nil)
+						return
+				}
 			}
 		}
 	}

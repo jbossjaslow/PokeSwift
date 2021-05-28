@@ -49,17 +49,23 @@ public extension Requestable {
 					return "\(i)"
 			}
 		}
-		
 		let queryURL = url + inputAsString
-		SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
-			switch result {
-				case .success(let requestedResult):
-					completion(requestedResult)
-					return
-				case .failure(let error):
-					print(error.localizedDescription)
-					completion(nil)
-					return
+		
+		if let cachedObject = baseResourceCache[queryURL] as? T {
+			completion(cachedObject)
+			return
+		} else {
+			SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
+				switch result {
+					case .success(let requestedResult):
+						baseResourceCache[queryURL] = requestedResult
+						completion(requestedResult)
+						return
+					case .failure(let error):
+						print(error.localizedDescription)
+						completion(nil)
+						return
+				}
 			}
 		}
 	}

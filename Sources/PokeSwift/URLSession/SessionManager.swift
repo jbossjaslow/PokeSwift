@@ -42,18 +42,24 @@ public struct SessionManager {
 			return
 		}
 		
-		call(url: url,
-			 requestType: .image) { result in
-			switch result {
-				case .success(let data):
-					if let image = UIImage(data: data) {
-						completion(.success(image))
-						return
-					} else {
-						fallthrough
-					}
-				default:
-					completion(.failure(.imageDecodingError))
+		if let cachedObject = imageCache[url] {
+			completion(.success(cachedObject))
+			return
+		} else {
+			call(url: url,
+				 requestType: .image) { result in
+				switch result {
+					case .success(let data):
+						if let image = UIImage(data: data) {
+							imageCache[url] = image
+							completion(.success(image))
+							return
+						} else {
+							fallthrough
+						}
+					default:
+						completion(.failure(.imageDecodingError))
+				}
 			}
 		}
 	}
