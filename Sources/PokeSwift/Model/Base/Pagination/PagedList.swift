@@ -6,8 +6,8 @@
 //
 
 public struct PagedList<Resource: BaseResourceProtocol>: BaseResourceProtocol {
-	var count: Int
-	var next: String?
-	var previous: String?
-	var results: [NamedAPIResource<Resource>]
+	public var count: Int
+	public var next: String?
+	public var previous: String?
+	public var results: [NamedAPIResource<Resource>]
 }

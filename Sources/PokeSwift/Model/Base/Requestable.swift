@@ -10,13 +10,13 @@ public enum RequestInputType {
 	case id(Int)
 }
 
-public protocol Requestable {
+public protocol Requestable: BaseResourceProtocol {
 	static var url: String { get }
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
 	static func requestList<T>(resourceLimit: Int,
 							   offset: Int,
-							   completion: @escaping ([NamedAPIResource<T>]?) -> Void) where T: BaseResourceProtocol
+							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
 	/// Test response used for debugging purposes
 	static var testResponse: String { get }
 }
@@ -72,7 +72,7 @@ public extension Requestable {
 	
 	static func requestList<T>(resourceLimit: Int = -1,
 							   offset: Int = -1,
-							   completion: @escaping ([NamedAPIResource<T>]?) -> Void) where T: BaseResourceProtocol {
+							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
 		var adjustedURL: String {
 			switch (resourceLimit, offset) {
 				case (-1, -1): return url
@@ -90,7 +90,7 @@ public extension Requestable {
 		SessionManager.makeRequest(url: adjustedURL) { (_ result: Result<PagedList<T>, APIError>) in
 			switch result {
 				case .success(let requestedResult):
-					completion(requestedResult.results)
+					completion(requestedResult)
 					return
 				case .failure(let error):
 					print(error.localizedDescription)
