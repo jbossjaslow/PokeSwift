@@ -70,6 +70,8 @@ public extension Requestable {
 		}
 	}
 	
+	//MARK: - Resource List
+	
 	static func requestList<T>(resourceLimit: Int = -1,
 							   offset: Int = -1,
 							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
@@ -87,7 +89,13 @@ public extension Requestable {
 			}
 		}
 		
-		SessionManager.makeRequest(url: adjustedURL) { (_ result: Result<PagedList<T>, APIError>) in
+		requestList(from: adjustedURL,
+					completion: completion)
+	}
+	
+	static func requestList<T>(from url: String,
+							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
+		SessionManager.makeRequest(url: url) { (_ result: Result<PagedList<T>, APIError>) in
 			switch result {
 				case .success(let requestedResult):
 					completion(requestedResult)
