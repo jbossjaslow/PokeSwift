@@ -8,6 +8,7 @@
 public enum RequestInputType {
 	case name(String)
 	case id(Int)
+	case url(String)
 }
 
 public protocol Requestable: BaseResourceProtocol {
@@ -43,15 +44,16 @@ public extension Requestable {
 	*/
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
-		var inputAsString: String {
+		var queryURL: String {
 			switch input {
 				case .name(let s):
-					return s
+					return self.url + s
 				case .id(let i):
-					return "\(i)"
+					return self.url + "\(i)"
+				case .url(let u):
+					return u
 			}
 		}
-		let queryURL = url + inputAsString
 		
 		if let cachedObject = baseResourceCache[queryURL] as? T {
 			completion(cachedObject)

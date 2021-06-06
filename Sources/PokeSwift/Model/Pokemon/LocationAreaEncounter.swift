@@ -21,25 +21,32 @@ extension LocationAreaEncounter: Requestable {
 	
 	//Overriding default implementation
 	public static func request<T>(using input: RequestInputType,
-						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
-		var inputAsString = ""
-		switch input {
-			case .name(let s):
-				inputAsString = s
-			case .id(let i):
-				inputAsString = "\(i)"
+								  completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
+		var queryURL: String {
+			switch input {
+				case .name(let s):
+					return self.url + s + "/encounters"
+				case .id(let i):
+					return self.url + "\(i)" + "/encounters"
+				case .url(let u):
+					return u + "/encounters"
+			}
 		}
 		
-		let queryURL = url + inputAsString + "/encounters"
-		SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
-			switch result {
-				case .success(let requestedResult):
-					completion(requestedResult)
-					return
-				case .failure(let error):
-					print(error.localizedDescription)
-					completion(nil)
-					return
+		if let cachedObject = baseResourceCache[queryURL] as? T {
+			completion(cachedObject)
+			return
+		} else {
+			SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
+				switch result {
+					case .success(let requestedResult):
+						completion(requestedResult)
+						return
+					case .failure(let error):
+						print(error.localizedDescription)
+						completion(nil)
+						return
+				}
 			}
 		}
 	}
