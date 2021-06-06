@@ -75,15 +75,13 @@ public struct SessionManager {
 		}
 		let session = URLSession.shared
 		
-		DispatchQueue.main.async {
-			session.dataTask(with: url) { data, response, error in
-				handleCallResponse(data: data,
-								   response: response,
-								   error: error,
-								   requestType: requestType,
-								   completion: completion)
-			}.resume()
-		}
+		session.dataTask(with: url) { data, response, error in
+			handleCallResponse(data: data,
+							   response: response,
+							   error: error,
+							   requestType: requestType,
+							   completion: completion)
+		}.resume()
 	}
 	
 	public static func handleCallResponse(data: Data?,
