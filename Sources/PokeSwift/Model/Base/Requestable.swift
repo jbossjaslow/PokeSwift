@@ -14,9 +14,11 @@ public protocol Requestable: BaseResourceProtocol {
 	static var url: String { get }
 	static func request<T>(using input: RequestInputType,
 						   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
-	static func requestList<T>(resourceLimit: Int,
-							   offset: Int,
-							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
+	static func requestDynamicList<T>(resourceLimit: Int,
+									  offset: Int,
+									  completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
+	static func requestStaticList<T>(resourceLimit: Int,
+									 completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
 	/// Test response used for debugging purposes
 	static var testResponse: String { get }
 }
@@ -72,9 +74,14 @@ public extension Requestable {
 	
 	//MARK: - Resource List
 	
-	static func requestList<T>(resourceLimit: Int = -1,
-							   offset: Int = -1,
-							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
+	/// Request a dynamic list of some of the members of the resource type
+	/// - Parameters:
+	///   - resourceLimit: Number of items to fetch
+	///   - offset: Offset to start at
+	///   - completion: `PagedList` with urls and array of `NamedAPIResource`
+	static func requestDynamicList<T>(resourceLimit: Int = -1,
+									  offset: Int = -1,
+									  completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
 		var adjustedURL: String {
 			switch (resourceLimit, offset) {
 				case (-1, -1): return url
@@ -91,6 +98,23 @@ public extension Requestable {
 		
 		requestList(from: adjustedURL,
 					completion: completion)
+	}
+	
+	/// Request a static list of all members of the resource type
+	/// - Parameters:
+	///   - resourceLimit: Number of items to fetch
+	///   - completion: `PagedList` with urls and array of `NamedAPIResource`
+	static func requestStaticList<T>(resourceLimit: Int,
+									 completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
+		let adjustedURL = url + "?limit=\(resourceLimit)"
+		
+		if let cachedObject = baseResourceCache[adjustedURL] as? PagedList<T> {
+			completion(cachedObject)
+			return
+		} else {
+			requestList(from: adjustedURL,
+						completion: completion)
+		}
 	}
 	
 	static func requestList<T>(from url: String,
