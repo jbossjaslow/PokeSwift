@@ -12,28 +12,19 @@ public struct NamedAPIResource<ResourceType: BaseResourceProtocol>: BaseResource
 	public let url: String
 }
 
-extension NamedAPIResource where ResourceType: Pokemon {
-	
-}
+//extension NamedAPIResource where ResourceType: Pokemon {
+//
+//}
 
+@available(iOS 15.0, *)
 public extension NamedAPIResource {
-	func request(completion: @escaping (_ result: ResourceType?) -> Void) {
+	func request() async throws -> ResourceType {
 		if let cachedObject = baseResourceCache[url] as? ResourceType {
-			completion(cachedObject)
-			return
+			return cachedObject
 		} else {
-			SessionManager.makeRequest(url: url) { (_ result: Result<ResourceType, APIError>) in
-				switch result {
-					case .success(let requestedResult):
-						completion(requestedResult)
-						baseResourceCache[url] = requestedResult
-						return
-					case .failure(let error):
-						print(error.localizedDescription)
-						completion(nil)
-						return
-				}
-			}
+			let requestedResult: ResourceType = try await SessionManager.makeRequest(url: url)
+			baseResourceCache[url] = requestedResult
+			return requestedResult
 		}
 	}
 }
