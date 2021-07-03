@@ -5,6 +5,8 @@
 //  Created by Josh Jaslow on 4/8/21.
 //
 
+import Foundation
+
 public struct NamedAPIResource<ResourceType: BaseResourceProtocol>: BaseResourceProtocol {
 	/// The name of the referenced resource.
 	public let name: String
@@ -26,5 +28,11 @@ public extension NamedAPIResource {
 			baseResourceCache[url] = requestedResult
 			return requestedResult
 		}
+	}
+}
+
+extension NamedAPIResource: Identifiable {
+	public var id: UUID {
+		UUID()
 	}
 }

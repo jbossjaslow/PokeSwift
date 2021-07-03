@@ -8,7 +8,6 @@
 import UIKit
 
 var baseResourceCache = Cache<String, BaseResourceProtocol>()
-var imageCache = Cache<String, UIImage>()
 
 final class Cache<Key: Hashable, Value> {
 	private let wrapped = NSCache<WrappedKey, Entry>()

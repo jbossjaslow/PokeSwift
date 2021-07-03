@@ -16,6 +16,7 @@ public struct SessionManager {
 		case image = "image/png"
 	}
 	
+	//MARK: - Make Request
 	public static func makeRequest<T: BaseResourceProtocol>(url: String) async throws -> T {
 		guard !url.isEmpty else {
 			throw APIError.internalError
@@ -25,35 +26,6 @@ public struct SessionManager {
 								  requestType: .json)
 		return try decodeJSON(from: data)
 	}
-	
-//	public static func requestImage(url: String,
-//									completion: @escaping ((Result<UIImage, APIError>) -> Void)) {
-//		guard !url.isEmpty else {
-//			completion(.failure(.internalError))
-//			return
-//		}
-//
-//		if let cachedObject = imageCache[url] {
-//			completion(.success(cachedObject))
-//			return
-//		} else {
-//			call(url: url,
-//				 requestType: .image) { result in
-//				switch result {
-//					case .success(let data):
-//						if let image = UIImage(data: data) {
-//							imageCache[url] = image
-//							completion(.success(image))
-//							return
-//						} else {
-//							fallthrough
-//						}
-//					default:
-//						completion(.failure(.imageDecodingError))
-//				}
-//			}
-//		}
-//	}
 	
 	//MARK: - Call and handle response
 	public static func call(url: String,
@@ -96,6 +68,9 @@ public struct SessionManager {
 		return data
 	}
 	
+	//MARK: - Decode JSON
+	/// Decodes an object from JSON data
+	/// - Returns: `T` The type of object to decode into
 	public static func decodeJSON<T: BaseResourceProtocol>(from data: Data) throws -> T {
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
