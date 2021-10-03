@@ -14,14 +14,14 @@ public class LocationAreaEncounter: BaseResourceProtocol {
 	public let versionDetails: [VersionEncounterDetail]?
 }
 
+@available(iOS 15.0, *)
 extension LocationAreaEncounter: Requestable {
 	public static var url: String {
 		"https://pokeapi.co/api/v2/pokemon/"
 	}
 	
 	//Overriding default implementation
-	public static func request<T>(using input: RequestInputType,
-								  completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
+	public static func request(using input: RequestInputType) async throws -> Self {
 		var queryURL: String {
 			switch input {
 				case .name(let s):
@@ -33,21 +33,12 @@ extension LocationAreaEncounter: Requestable {
 			}
 		}
 		
-		if let cachedObject = baseResourceCache[queryURL] as? T {
-			completion(cachedObject)
-			return
+		if let cachedObject = baseResourceCache[queryURL] as? Self {
+			return cachedObject
 		} else {
-			SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
-				switch result {
-					case .success(let requestedResult):
-						completion(requestedResult)
-						return
-					case .failure(let error):
-						print(error.localizedDescription)
-						completion(nil)
-						return
-				}
-			}
+			let requestedResult: Self = try await SessionManager.makeRequest(url: url)
+			baseResourceCache[queryURL] = requestedResult
+			return requestedResult
 		}
 	}
 	

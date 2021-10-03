@@ -38,6 +38,8 @@ public class Move: BaseResourceProtocol {
 	public let flavorTextEntries: [MoveFlavorText]?
 	/// The generation in which this move was introduced.
 	public let generation: NamedAPIResource<Generation>?
+	/// A list of Pokemon that learn this move.
+	public let learnedByPokemon: [NamedAPIResource<Pokemon>]?
 	/// A list of the machines that teach this move.
 	public let machines: [MachineVersionDetail]?
 	/// Metadata about this move

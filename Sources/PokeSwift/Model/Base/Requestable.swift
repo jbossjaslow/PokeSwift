@@ -11,39 +11,32 @@ public enum RequestInputType {
 	case url(String)
 }
 
+@available(iOS 15.0, *)
 public protocol Requestable: BaseResourceProtocol {
 	static var url: String { get }
-	static func request<T>(using input: RequestInputType,
-						   completion: @escaping (T?) -> Void) where T: BaseResourceProtocol
-	static func requestDynamicList<T>(resourceLimit: Int,
-									  offset: Int,
-									  completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
-	static func requestStaticList<T>(resourceLimit: Int,
-									 completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol
+	static func request(using input: RequestInputType) async throws -> Self
+	static func requestDynamicList<T: BaseResourceProtocol>(resourceLimit: Int,
+															offset: Int) async throws -> PagedList<T>
+	static func requestStaticList<T: BaseResourceProtocol>(resourceLimit: Int) async throws -> PagedList<T>
 	/// Test response used for debugging purposes
 	static var testResponse: String { get }
 }
 
+@available(iOS 15.0, *)
 public extension Requestable {
 	/**
 	 Request resources from the PokeAPI
 	 - Parameters:
 	   - input: `RequestInputType` A string or integer representing the specific resource being requested
-	   - completion: `@escaping (_ result: T?) -> Void)` The result of the specified model
 	
 	 - Usage:
 		```
-		Berry.request(using: .string("Cheri")) { (_ result: Berry?) in
-		    guard let berry = result else {
-			    return
-		    }
-		
-		    print(berry.growth_time)
-		}
+		let pokemon = try await Pokemon.request(using: .string("Bulbasaur"))
 		```
 	*/
-	static func request<T>(using input: RequestInputType,
-						   completion: @escaping (_ result: T?) -> Void) where T: BaseResourceProtocol {
+	/// Request a resource using the `Async-Await` protocol
+	/// - Returns: `Self` the type calling this function
+	static func request(using input: RequestInputType) async throws -> Self {
 		var queryURL: String {
 			switch input {
 				case .name(let s):
@@ -55,22 +48,12 @@ public extension Requestable {
 			}
 		}
 		
-		if let cachedObject = baseResourceCache[queryURL] as? T {
-			completion(cachedObject)
-			return
+		if let cachedObject = baseResourceCache[queryURL] as? Self {
+			return cachedObject
 		} else {
-			SessionManager.makeRequest(url: queryURL) { (_ result: Result<T, APIError>) in
-				switch result {
-					case .success(let requestedResult):
-						baseResourceCache[queryURL] = requestedResult
-						completion(requestedResult)
-						return
-					case .failure(let error):
-						print(error.localizedDescription)
-						completion(nil)
-						return
-				}
-			}
+			let requestedResult: Self = try await SessionManager.makeRequest(url: queryURL)
+			baseResourceCache[queryURL] = requestedResult
+			return requestedResult
 		}
 	}
 	
@@ -81,9 +64,8 @@ public extension Requestable {
 	///   - resourceLimit: Number of items to fetch
 	///   - offset: Offset to start at
 	///   - completion: `PagedList` with urls and array of `NamedAPIResource`
-	static func requestDynamicList<T>(resourceLimit: Int = -1,
-									  offset: Int = -1,
-									  completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
+	static func requestDynamicList<T: BaseResourceProtocol>(resourceLimit: Int = -1,
+															offset: Int = -1) async throws -> PagedList<T> {
 		var adjustedURL: String {
 			switch (resourceLimit, offset) {
 				case (-1, -1): return url
@@ -98,39 +80,24 @@ public extension Requestable {
 			}
 		}
 		
-		requestList(from: adjustedURL,
-					completion: completion)
+		return try await requestList(from: adjustedURL)
 	}
 	
 	/// Request a static list of all members of the resource type
 	/// - Parameters:
 	///   - resourceLimit: Number of items to fetch
 	///   - completion: `PagedList` with urls and array of `NamedAPIResource`
-	static func requestStaticList<T>(resourceLimit: Int,
-									 completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
+	static func requestStaticList<T: BaseResourceProtocol>(resourceLimit: Int) async throws -> PagedList<T> {
 		let adjustedURL = url + "?limit=\(resourceLimit)"
 		
 		if let cachedObject = baseResourceCache[adjustedURL] as? PagedList<T> {
-			completion(cachedObject)
-			return
+			return cachedObject
 		} else {
-			requestList(from: adjustedURL,
-						completion: completion)
+			return try await requestList(from: adjustedURL)
 		}
 	}
 	
-	static func requestList<T>(from url: String,
-							   completion: @escaping (PagedList<T>?) -> Void) where T: BaseResourceProtocol {
-		SessionManager.makeRequest(url: url) { (_ result: Result<PagedList<T>, APIError>) in
-			switch result {
-				case .success(let requestedResult):
-					completion(requestedResult)
-					return
-				case .failure(let error):
-					print(error.localizedDescription)
-					completion(nil)
-					return
-			}
-		}
+	static func requestList<T: BaseResourceProtocol>(from url: String) async throws -> PagedList<T> {
+		return try await SessionManager.makeRequest(url: url)
 	}
 }
