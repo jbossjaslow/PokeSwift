@@ -8,16 +8,14 @@
 import Foundation
 import UIKit
 
-@available(iOS 15.0, *)
-public struct SessionManager {
-	
-	public enum MimeType: String {
+internal actor SessionManager {
+	internal enum MimeType: String {
 		case json = "application/json"
 		case image = "image/png"
 	}
 	
 	//MARK: - Make Request
-	public static func makeRequest<T: BaseResourceProtocol>(url: String) async throws -> T {
+	internal static func makeRequest<T: BaseResourceProtocol>(url: String) async throws -> T {
 		guard !url.isEmpty else {
 			throw APIError.internalError
 		}
@@ -28,7 +26,7 @@ public struct SessionManager {
 	}
 	
 	//MARK: - Call and handle response
-	public static func call(url: String,
+	internal static func call(url: String,
 							requestType: MimeType) async throws -> Data {
 		guard !url.isEmpty,
 			  let URL = URL(string: url) else {
@@ -41,7 +39,7 @@ public struct SessionManager {
 											requestType: requestType)
 	}
 	
-	public static func handleCallResponse(data: Data?,
+	internal static func handleCallResponse(data: Data?,
 										  response: URLResponse?,
 										  requestType: MimeType) throws -> Data {
 		if let httpResponse = response as? HTTPURLResponse,
@@ -71,7 +69,7 @@ public struct SessionManager {
 	//MARK: - Decode JSON
 	/// Decodes an object from JSON data
 	/// - Returns: `T` The type of object to decode into
-	public static func decodeJSON<T: BaseResourceProtocol>(from data: Data) throws -> T {
+	internal static func decodeJSON<T: BaseResourceProtocol>(from data: Data) throws -> T {
 		let decoder = JSONDecoder()
 		decoder.keyDecodingStrategy = .convertFromSnakeCase
 		return try decoder.decode(T.self, from: data)

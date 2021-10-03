@@ -8,7 +8,6 @@
 import XCTest
 @testable import PokeSwift
 
-@available(iOS 15.0, *)
 final class JSONDecodingTests: XCTestCase {
 //	let allRequestableModels: [Requestable.Type] = [
 //		Berry.self,
@@ -762,7 +761,6 @@ final class JSONDecodingTests: XCTestCase {
 	 */
 }
 
-@available(iOS 15.0, *)
 extension JSONDecodingTests {
 	private func readLocalFile(forName name: String) -> Data? {
 		do {
