@@ -18,7 +18,6 @@ public struct NamedAPIResource<ResourceType: BaseResourceProtocol>: BaseResource
 //
 //}
 
-@available(iOS 15.0, *)
 public extension NamedAPIResource {
 	func request() async throws -> ResourceType {
 		if let cachedObject = baseResourceCache[url] as? ResourceType {

@@ -11,7 +11,6 @@ public enum RequestInputType {
 	case url(String)
 }
 
-@available(iOS 15.0, *)
 public protocol Requestable: BaseResourceProtocol {
 	static var url: String { get }
 	static func request(using input: RequestInputType) async throws -> Self
@@ -22,7 +21,6 @@ public protocol Requestable: BaseResourceProtocol {
 	static var testResponse: String { get }
 }
 
-@available(iOS 15.0, *)
 public extension Requestable {
 	/**
 	 Request resources from the PokeAPI

@@ -14,7 +14,6 @@ public class LocationAreaEncounter: BaseResourceProtocol {
 	public let versionDetails: [VersionEncounterDetail]?
 }
 
-@available(iOS 15.0, *)
 extension LocationAreaEncounter: Requestable {
 	public static var url: String {
 		"https://pokeapi.co/api/v2/pokemon/"
