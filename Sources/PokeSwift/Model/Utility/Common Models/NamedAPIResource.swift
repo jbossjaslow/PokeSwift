@@ -14,9 +14,12 @@ public struct NamedAPIResource<ResourceType: BaseResourceProtocol>: BaseResource
 	public let url: String
 }
 
-//extension NamedAPIResource where ResourceType: Pokemon {
-//
-//}
+public extension NamedAPIResource where ResourceType == Pokemon {
+	public init(species: NamedAPIResource<PokemonSpecies>) {
+		self.name = species.name
+		self.url = Pokemon.url + species.name
+	}
+}
 
 public extension NamedAPIResource {
 	func request() async throws -> ResourceType {
