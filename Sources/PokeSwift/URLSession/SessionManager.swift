@@ -27,21 +27,21 @@ internal actor SessionManager {
 	
 	//MARK: - Call and handle response
 	internal static func call(url: String,
-							requestType: MimeType) async throws -> Data {
+							  requestType: MimeType) async throws -> Data {
 		guard !url.isEmpty,
 			  let URL = URL(string: url) else {
-			throw APIError.internalError
-		}
+				  throw APIError.internalError
+			  }
 		
 		let (data, response) = try await URLSession.shared.data(from: URL)
 		return try handleCallResponse(data: data,
-											response: response,
-											requestType: requestType)
+									  response: response,
+									  requestType: requestType)
 	}
 	
 	internal static func handleCallResponse(data: Data?,
-										  response: URLResponse?,
-										  requestType: MimeType) throws -> Data {
+											response: URLResponse?,
+											requestType: MimeType) throws -> Data {
 		if let httpResponse = response as? HTTPURLResponse,
 		   let status = httpResponse.status {
 			switch status.responseType {

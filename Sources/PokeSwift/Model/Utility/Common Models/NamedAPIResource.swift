@@ -15,7 +15,7 @@ public struct NamedAPIResource<ResourceType: BaseResourceProtocol>: BaseResource
 }
 
 public extension NamedAPIResource where ResourceType == Pokemon {
-	public init(species: NamedAPIResource<PokemonSpecies>) {
+	init(species: NamedAPIResource<PokemonSpecies>) {
 		self.name = species.name
 		self.url = Pokemon.url + species.name
 	}

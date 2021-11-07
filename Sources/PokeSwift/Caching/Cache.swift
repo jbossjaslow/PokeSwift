@@ -8,8 +8,9 @@
 import UIKit
 
 var baseResourceCache = Cache<String, BaseResourceProtocol>()
+public var imageCache = Cache<String, UIImage>()
 
-final class Cache<Key: Hashable, Value> {
+final public class Cache<Key: Hashable, Value> {
 	private let wrapped = NSCache<WrappedKey, Entry>()
 	
 	func insert(_ value: Value, forKey key: Key) {
@@ -29,7 +30,7 @@ final class Cache<Key: Hashable, Value> {
 
 extension Cache {
 	/// Usage: `cache[url] = helloworld.com`
-	subscript(key: Key) -> Value? {
+	public subscript(key: Key) -> Value? {
 		get {
 			return value(forKey: key)
 		}
